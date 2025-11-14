@@ -1,5 +1,5 @@
 // src/schemas.ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const signupSchema = z.object({
   email: z.string().email(),
@@ -12,18 +12,28 @@ export const signinSchema = z.object({
   password: z.string().min(1),
 });
 
-// ✅ Used for forms (input)
-export const todoSchema = z.object({
-  title: z.string().min(1),
+// ---- Todo enums ----
+export const PRIORITIES = ["low", "medium", "high"] as const;
+export type Priority = (typeof PRIORITIES)[number];
+
+export const STATUSES = ["pending", "in-progress", "completed"] as const;
+export type Status = (typeof STATUSES)[number];
+
+// ---- Form schema (used by react-hook-form + zodResolver) ----
+export const todoFormSchema = z.object({
+  title: z.string().min(1, "Title is required"),
   description: z.string().optional(),
-  completed: z.boolean().optional(),
+  priority: z.enum(PRIORITIES),
+  status: z.enum(STATUSES),
 });
 
-// ✅ Used for API responses
-export const todoApiSchema = todoSchema.extend({
+export type TodoFormInput = z.infer<typeof todoFormSchema>;
+
+// ---- API schema (server responses) ----
+export const todoApiSchema = todoFormSchema.extend({
   _id: z.string(),
   user: z.string(),
-  completed: z.boolean(), // required on response
+  completed: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

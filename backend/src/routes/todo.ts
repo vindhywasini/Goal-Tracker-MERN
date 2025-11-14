@@ -1,4 +1,3 @@
-// src/routes/todo.ts
 import express, { Response, NextFunction } from 'express';
 import Todo from '../models/Todo';
 import { requireAuth, AuthRequest } from '../middleware/auth';
@@ -13,7 +12,7 @@ router.post(
   '/',
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const { title, description } = req.body;
+      const { title, description, priority } = req.body;
       if (!title) {
         return res.status(400).json({ message: 'title required' });
       }
@@ -22,9 +21,11 @@ router.post(
         user: req.user!._id,
         title,
         description,
+        priority: priority || 'low',
+        status: 'pending',
+        completed: false,
       });
 
-      // frontend expects res.data.todo
       res.status(201).json({ todo });
     } catch (err) {
       next(err);
@@ -40,8 +41,6 @@ router.get(
       const todos = await Todo.find({ user: req.user!._id }).sort({
         createdAt: -1,
       });
-
-      // frontend expects res.data.todos
       res.json({ todos });
     } catch (err) {
       next(err);
@@ -49,15 +48,22 @@ router.get(
   }
 );
 
-// FULL UPDATE TODO
+// FULL / PARTIAL UPDATE TODO (status, title, etc.)
 router.put(
   '/:id',
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
+      const update: any = { ...req.body };
+
+      // keep completed in sync with status if provided
+      if (typeof update.status === 'string') {
+        update.completed = update.status === 'completed';
+      }
+
       const todo = await Todo.findOneAndUpdate(
         { _id: id, user: req.user!._id },
-        req.body,
+        update,
         { new: true }
       );
       if (!todo) {
@@ -80,8 +86,11 @@ router.patch(
       if (!todo) {
         return res.status(404).json({ message: 'Not found' });
       }
+
       todo.completed = !todo.completed;
+      todo.status = todo.completed ? 'completed' : 'pending';
       await todo.save();
+
       res.json({ todo });
     } catch (err) {
       next(err);
