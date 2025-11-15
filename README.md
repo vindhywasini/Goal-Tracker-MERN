@@ -23,7 +23,7 @@ A full-stack **Todo List** app built using **React (with TypeScript)** on the fr
 - Dark Mode support
 - Todo List Management
   - Create Todo
-  - Update Todo (Edit title, status, priority)
+  - Update Todo (status, priority)
   - Delete Todo
   - Mark Todo as completed or pending
 - Calendar Event Planning
