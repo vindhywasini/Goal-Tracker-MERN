@@ -32,7 +32,7 @@ const Signin: React.FC = () => {
       <div className="auth-card">
         <h2 className="auth-title">Welcome back</h2>
         <p className="auth-subtitle">
-          Sign in to continue tracking your goals.
+          Sign in to continue tracking your tasks.
         </p>
 
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
@@ -58,6 +58,12 @@ const Signin: React.FC = () => {
               <p className="field-error">{errors.password.message}</p>
             )}
           </label>
+
+          <div style={{ textAlign: "right", marginBottom: 8 }}>
+            <Link to="/forgot-password" className="auth-forgot-link">
+              Forgot password?
+            </Link>
+          </div>
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Signing in..." : "Sign in"}

@@ -1,22 +1,74 @@
-# Fullstack Todo App (React + TS frontend, Node + TS backend)
 
-This repo contains a complete todo application scaffold meeting the assignment requirements:
-- JWT auth (signup/signin)
-- Forgot / Reset password (token returned for testing)
-- Todos CRUD (create, update, list, delete, toggle completed)
-- Errors logged into MongoDB `logs` collection
-- Frontend uses React + TypeScript, React Router, Zustand, React Query, zod, react-hook-form
+# Todo List Application
 
-To run:
-- Fill `backend/.env` with MONGODB_URI and JWT_SECRET
-- Start backend:
-  cd backend
-  npm install
-  npm run dev
-- Start frontend:
-  cd frontend
-  npm install
-  npm run dev
+A full-stack **Todo List** app built using **React (with TypeScript)** on the frontend, **Node.js (with TypeScript)** on the backend, and **MongoDB** for the database. This app includes user authentication, JWT-based sessions, and CRUD functionality for managing todos. Additionally, the app supports **dark mode and calendar event planning**.
 
-Only change environment variables as required.
+## Features
 
+### Backend:
+- User Authentication (JWT auth)
+  - Signup
+  - Signin
+  - Forgot Password 
+
+- Todo Management
+  - Create Todo
+  - Update Todo (including changing status and priority)
+  - Delete Todo
+  - Mark Todo as completed or pending
+- JWT Authentication
+
+### Frontend:
+- User Login/Signup
+- Dark Mode support
+- Todo List Management
+  - Create Todo
+  - Update Todo (Edit title, status, priority)
+  - Delete Todo
+  - Mark Todo as completed or pending
+- Calendar Event Planning
+  - Add, Delete, Edit events
+- React Query for API data fetching
+- Form validation using React Hook Form and Zod schemas
+
+
+
+## Usage
+
+1. User Authentication:
+
+Go to /signup to create a new user.
+After signing up, you can login on /signin with the credentials you created.
+You will be redirected to the /todos page where you can manage your todos.
+
+2. Todo Management:
+
+Add new todos using the input field.
+Change the priority or status of todos.
+Mark todos as completed using the checkbox.
+Delete a todo by clicking the Delete button.
+
+3. Calendar Planner:
+
+Add events by selecting a date and providing a description.
+Delete events using the Delete button.
+
+
+## Technologies Used
+
+Frontend:
+
+React.js
+TypeScript
+React Router
+React Query
+Zod for validation
+Zustand for state management
+
+Backend:
+
+Node.js
+TypeScript
+Express.js
+JWT for Authentication
+MongoDB with Mongoose

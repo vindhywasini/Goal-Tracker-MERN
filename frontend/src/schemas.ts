@@ -12,6 +12,16 @@ export const signinSchema = z.object({
   password: z.string().min(1),
 });
 
+// 🔹 Forgot / Reset password
+export const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1, "Reset token is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
 // ---- Todo enums ----
 export const PRIORITIES = ["low", "medium", "high"] as const;
 export type Priority = (typeof PRIORITIES)[number];

@@ -134,9 +134,9 @@ const Todos: React.FC = () => {
     <div id="content-container">
       {/* GOAL / TODO TRACKING */}
       <section id="goal-tracking">
-        <h2>Goal Tracking</h2>
+        <h2>Todos</h2>
         <p style={{ marginBottom: 8, fontSize: "0.9rem", opacity: 0.8 }}>
-          Add a goal using the input below:
+          Enter What Todo using the input below:
         </p>
 
         {/* Add Goal / Todo */}

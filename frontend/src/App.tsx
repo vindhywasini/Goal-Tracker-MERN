@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
+
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Todos from "./pages/Todos";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import { useAuthStore } from "./store";
 
 type Theme = "light" | "dark";
 
-export default function App() {
+const App: React.FC = () => {
   const { user, logout } = useAuthStore();
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === "undefined") return "light";
@@ -46,9 +49,7 @@ export default function App() {
               <button className="nav-btn" onClick={logout}>
                 Logout
               </button>
-              {/* <Link className="nav-link" to="/todos">
-                My Goals
-              </Link> */}
+              {/* "My Goals" link removed as requested */}
             </>
           ) : (
             <>
@@ -71,6 +72,8 @@ export default function App() {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/todos"
             element={user ? <Todos /> : <Navigate to="/signin" />}
@@ -83,4 +86,6 @@ export default function App() {
       </footer>
     </div>
   );
-}
+};
+
+export default App;
